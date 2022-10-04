@@ -36,7 +36,7 @@ const Index: NextPage = () => {
           <h2>Colors</h2>
           <h2>Variant</h2>
           <div>
-            {variants.map((item: any) => (
+            {variants.map((item: Variants) => (
               <label
                 key={item}
                 className={clsx([
