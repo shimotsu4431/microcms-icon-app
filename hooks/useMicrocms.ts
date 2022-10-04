@@ -20,7 +20,6 @@ export const useMicrocms: UseMicrocms = () => {
   useEffect(() => {
     console.log('===============================');
     window.addEventListener('message', (e) => {
-      console.log('event');
       console.log('e', e);
       if (
         e.isTrusted === true &&
