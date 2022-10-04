@@ -40,6 +40,7 @@ export const useMicrocms: UseMicrocms = () => {
 
   const submitData = useCallback(
     (item: any) => {
+      console.log('submit item', item);
       setData(item);
       microcmsPostData({
         id,
