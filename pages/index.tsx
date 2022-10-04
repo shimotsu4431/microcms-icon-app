@@ -34,6 +34,15 @@ const Index: NextPage = () => {
         </div>
         <div>
           <h2>Colors</h2>
+          <div className={styles.colors}>
+            {colors.map((color) => (
+              <div
+                key={color}
+                className={styles.color}
+                style={{ backgroundColor: `${color}` }}
+              ></div>
+            ))}
+          </div>
           <h2>Variant</h2>
           <div>
             {variants.map((item: Variants) => (

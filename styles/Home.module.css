@@ -43,3 +43,14 @@
 .radioButton {
   display: none;
 }
+
+.colors {
+  display: flex;
+}
+
+.color {
+  width: 24px;
+  height: 24px;
+  margin-right: 16px;
+  border-radius: 16px;
+}
