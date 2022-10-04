@@ -5,7 +5,14 @@ import clsx from 'clsx';
 import styles from '../styles/Home.module.css';
 
 type Variants = 'marble' | 'beam' | 'pixel' | 'sunset' | 'ring' | 'bauhaus';
-const variants: any = ['beam', 'marble', 'pixel', 'sunset', 'ring', 'bauhaus'];
+const variants: Variants[] = [
+  'beam',
+  'marble',
+  'pixel',
+  'sunset',
+  'ring',
+  'bauhaus',
+];
 
 type HEX = `#${string}`;
 const colors: HEX[] = ['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90'];
