@@ -46,11 +46,30 @@
 
 .colors {
   display: flex;
+  align-items: center;
 }
 
 .color {
   width: 24px;
   height: 24px;
-  margin-right: 16px;
+  margin-right: 6px;
   border-radius: 16px;
+}
+
+.randomButton {
+  cursor: pointer;
+  border: 1px solid #cdcde0;
+  background-color: #fff;
+  height: 34px;
+  line-height: 34px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.randomButton > svg {
+  margin-right: 6px;
+  font-size: 16px;
 }

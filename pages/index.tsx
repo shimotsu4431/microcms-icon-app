@@ -1,8 +1,10 @@
 import type { NextPage } from 'next';
 import Avatar from 'boring-avatars';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import clsx from 'clsx';
 import styles from '../styles/Home.module.css';
+import { colorPalette } from '../config/colorPalette';
+import { FaRandom } from 'react-icons/fa';
 
 type Variants = 'marble' | 'beam' | 'pixel' | 'sunset' | 'ring' | 'bauhaus';
 const variants: Variants[] = [
@@ -14,12 +16,20 @@ const variants: Variants[] = [
   'bauhaus',
 ];
 
-type HEX = `#${string}`;
-const colors: HEX[] = ['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90'];
+export type HEX = `#${string}`;
 
 const Index: NextPage = () => {
-  const [name, setName] = useState<string>('Johnny');
+  const [name, setName] = useState<string>('Aaron Donald');
   const [selectedVariant, setSelectedVariant] = useState<Variants>('beam');
+
+  const [colors, setColors] = useState<HEX[]>(colorPalette[0]);
+
+  const handleRandomPalette = useCallback(() => {
+    const MIN = 0;
+    const MAX = 11;
+
+    setColors(colorPalette[Math.floor(Math.random() * (MAX + 1 - MIN)) + MIN]);
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -42,6 +52,13 @@ const Index: NextPage = () => {
                 style={{ backgroundColor: `${color}` }}
               ></div>
             ))}
+            <button
+              onClick={handleRandomPalette}
+              className={styles.randomButton}
+            >
+              <FaRandom />
+              Random Palette
+            </button>
           </div>
           <h2>Variant</h2>
           <div>
