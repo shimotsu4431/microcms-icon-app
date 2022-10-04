@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import styles from '../styles/Home.module.css';
 import { colorPalette } from '../config/colorPalette';
 import { FaRandom } from 'react-icons/fa';
+import { useMicrocms } from '../hooks/useMicrocms';
 
 type Variants = 'marble' | 'beam' | 'pixel' | 'sunset' | 'ring' | 'bauhaus';
 const variants: Variants[] = [
@@ -19,10 +20,11 @@ const variants: Variants[] = [
 export type HEX = `#${string}`;
 
 const Index: NextPage = () => {
-  const [name, setName] = useState<string>('Aaron Donald');
+  const [name, setName] = useState<string>('');
   const [selectedVariant, setSelectedVariant] = useState<Variants>('beam');
 
   const [colors, setColors] = useState<HEX[]>(colorPalette[0]);
+  const [data, setData, submitData] = useMicrocms();
 
   const handleRandomPalette = useCallback(() => {
     const MIN = 0;
@@ -30,6 +32,13 @@ const Index: NextPage = () => {
 
     setColors(colorPalette[Math.floor(Math.random() * (MAX + 1 - MIN)) + MIN]);
   }, []);
+
+  const handleSubmit = () => {
+    submitData(
+      'https://source.boringavatars.com/marble/120/Aaron%20Donald?colors=264653,2a9d8f,e9c46a,f4a261,e76f51'
+    );
+    alert('submit!');
+  };
 
   return (
     <div className={styles.container}>
@@ -85,12 +94,17 @@ const Index: NextPage = () => {
         </div>
         <div className={styles.form}>
           <h2 className={styles.title}>Name</h2>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className={styles.input}
-          />
+          <div>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className={styles.input}
+            />
+            <button onClick={handleSubmit} className={styles.submitButton}>
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     </div>
