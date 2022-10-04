@@ -17,12 +17,11 @@ export const useMicrocms: UseMicrocms = () => {
   const [id, setId] = useState<string>('');
   const [data, setData] = useState<any | null>(null);
 
-  // 管理画面を開いた際、すでに登録されているデータがあれば取得する
   useEffect(() => {
     console.log('===============================');
     window.addEventListener('message', (e) => {
       console.log('event');
-      console.log('e.data', e.data);
+      console.log('e', e);
       if (
         e.isTrusted === true &&
         e.data.action === 'MICROCMS_GET_DEFAULT_DATA'
@@ -39,7 +38,6 @@ export const useMicrocms: UseMicrocms = () => {
     });
   }, []);
 
-  // 任意の書影をクリック時（管理画面に送信したいとき）
   const submitData = useCallback(
     (item: any) => {
       setData(item);
