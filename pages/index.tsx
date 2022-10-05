@@ -1,12 +1,10 @@
 import type { NextPage } from 'next';
-import Avatar from 'boring-avatars';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import styles from '../styles/Home.module.css';
 import { colorPalette } from '../config/colorPalette';
 import { FaRandom } from 'react-icons/fa';
 import { useMicrocms } from '../hooks/useMicrocms';
-import Image from 'next/image';
 
 export type Variants =
   | 'marble'
@@ -35,7 +33,6 @@ const Index: NextPage = () => {
 
   useEffect(() => {
     if (data) {
-      console.log('data', data);
       setName(data.name);
       setSelectedVariant(data.variant);
       setColors(data.colors);
@@ -50,7 +47,9 @@ const Index: NextPage = () => {
 
   const handleSubmit = () => {
     const iconSize = 100;
-    const imageUrl = `https://source.boringavatars.com/${selectedVariant}/${iconSize}/${name}?colors=${makeColorCodes()}`;
+    const imageUrl = `https://source.boringavatars.com/${selectedVariant}/${iconSize}/${encodeURI(
+      name
+    )}?colors=${makeColorCodes()}`;
 
     submitData({
       imageUrl,
