@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Avatar from 'boring-avatars';
-import { useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import styles from '../styles/Home.module.css';
 import { colorPalette } from '../config/colorPalette';
@@ -34,14 +34,6 @@ const Index: NextPage = () => {
     }
   }, [data]);
 
-  const handleRandomPalette = useCallback(() => {
-    const MIN = 0;
-    const MAX = 11;
-    const randomNum = Math.floor(Math.random() * (MAX + 1 - MIN)) + MIN;
-
-    setColors(colorPalette[randomNum]);
-  }, []);
-
   const makeColorCodes = () => {
     const arr = colors.map((c) => c.slice(1));
 
@@ -58,8 +50,29 @@ const Index: NextPage = () => {
       variant: selectedVariant,
       colors,
     });
-    alert('submit!');
   };
+
+  const handleSelectVariant = (item: Variants) => {
+    setSelectedVariant(item);
+  };
+
+  const handleRandomPalette = useCallback(() => {
+    const MIN = 0;
+    const MAX = 11;
+    const randomNum = Math.floor(Math.random() * (MAX + 1 - MIN)) + MIN;
+
+    setColors(colorPalette[randomNum]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleInputName = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
+  useEffect(() => {
+    handleSubmit();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name, selectedVariant, colors]);
 
   if (data === null) return null;
 
@@ -108,7 +121,7 @@ const Index: NextPage = () => {
                   name={name}
                   value={selectedVariant}
                   checked={item === selectedVariant}
-                  onChange={() => setSelectedVariant(item)}
+                  onChange={() => handleSelectVariant(item)}
                   className={styles.radioButton}
                 />
               </label>
@@ -121,12 +134,9 @@ const Index: NextPage = () => {
             <input
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => handleInputName(e)}
               className={styles.input}
             />
-            <button onClick={handleSubmit} className={styles.submitButton}>
-              Submit
-            </button>
           </div>
         </div>
       </div>

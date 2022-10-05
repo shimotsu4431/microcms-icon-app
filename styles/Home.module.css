@@ -73,15 +73,3 @@
   margin-right: 6px;
   font-size: 16px;
 }
-
-.submitButton {
-  cursor: pointer;
-  border: none;
-  background-color: #3ea8ff;
-  border-radius: 4px;
-  margin-left: 10px;
-  width: 80px;
-  height: 40px;
-  color: #ffffff;
-  font-weight: bold;
-}
