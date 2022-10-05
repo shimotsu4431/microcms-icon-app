@@ -28,6 +28,7 @@ const Index: NextPage = () => {
   const [data, setData, submitData] = useMicrocms();
   const [name, setName] = useState<string>('');
   const [selectedVariant, setSelectedVariant] = useState<Variants>('beam');
+  const [mounted, setMounted] = useState<boolean>(false);
 
   const [colors, setColors] = useState<HEX[]>(colorPalette[0]);
 
@@ -36,6 +37,11 @@ const Index: NextPage = () => {
       setName(data.name);
       setSelectedVariant(data.variant);
       setColors(data.colors);
+
+      // data.name だけ取得が遅れるので暫定的にこうしておく
+      setTimeout(() => {
+        setMounted(true);
+      }, 300);
     }
   }, [data]);
 
@@ -86,15 +92,17 @@ const Index: NextPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.inner}>
-        <div className={styles.avatar}>
-          <img
-            src={
-              (data && data.imageUrl) ||
-              `https://source.boringavatars.com/${selectedVariant}/100/${name}?colors=${makeColorCodes()}`
-            }
-            alt={(data && data.name) || ''}
-          />
-        </div>
+        {mounted && (
+          <div className={styles.avatar}>
+            <img
+              src={
+                (data && data.imageUrl) ||
+                `https://source.boringavatars.com/${selectedVariant}/100/${name}?colors=${makeColorCodes()}`
+              }
+              alt={(data && data.name) || ''}
+            />
+          </div>
+        )}
         <div>
           <h2>Colors</h2>
           <div className={styles.colors}>
