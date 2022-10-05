@@ -7,7 +7,13 @@ import { colorPalette } from '../config/colorPalette';
 import { FaRandom } from 'react-icons/fa';
 import { useMicrocms } from '../hooks/useMicrocms';
 
-type Variants = 'marble' | 'beam' | 'pixel' | 'sunset' | 'ring' | 'bauhaus';
+export type Variants =
+  | 'marble'
+  | 'beam'
+  | 'pixel'
+  | 'sunset'
+  | 'ring'
+  | 'bauhaus';
 const variants: Variants[] = [
   'beam',
   'marble',
@@ -41,7 +47,7 @@ const Index: NextPage = () => {
   };
 
   const handleSubmit = () => {
-    const iconSize = 60;
+    const iconSize = 100;
     const imageUrl = `https://source.boringavatars.com/${selectedVariant}/${iconSize}/${name}?colors=${makeColorCodes()}`;
 
     submitData({
@@ -70,9 +76,11 @@ const Index: NextPage = () => {
   };
 
   useEffect(() => {
+    console.log('submit');
     handleSubmit();
+    console.log(colors[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, selectedVariant, colors]);
+  }, [name, selectedVariant, colors[0]]);
 
   if (data === null) return null;
 

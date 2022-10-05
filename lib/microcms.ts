@@ -1,4 +1,12 @@
 import { microcmsUrl } from '../config/microcms';
+import { HEX, Variants } from '../pages';
+
+export type PostData = {
+  name: string;
+  variant: Variants;
+  imageUrl: string;
+  colors: HEX[];
+};
 
 type Message = {
   id?: string; // iFrame識別子
@@ -6,7 +14,7 @@ type Message = {
   description?: string;
   imageUrl?: string;
   updatedAt?: Date;
-  data: any;
+  data: PostData;
 };
 
 type Data = {
@@ -14,9 +22,13 @@ type Data = {
   message: Message;
 };
 
+type StyleMessage = {
+  height: number;
+};
+
 type Style = {
   id: string;
-  message: any;
+  message: StyleMessage;
 };
 
 export const microcmsPostData = (data: Data) => {

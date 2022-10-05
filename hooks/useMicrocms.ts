@@ -5,17 +5,21 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { microcmsPostData, microcmsUpdateStyle } from '../lib/microcms';
+import {
+  microcmsPostData,
+  microcmsUpdateStyle,
+  PostData,
+} from '../lib/microcms';
 
 type UseMicrocms = () => [
-  any | undefined | null,
-  Dispatch<SetStateAction<any | null>>,
-  (item: any) => void
+  PostData | null,
+  Dispatch<SetStateAction<PostData | null>>,
+  (item: PostData) => void
 ];
 
 export const useMicrocms: UseMicrocms = () => {
   const [id, setId] = useState<string>('');
-  const [data, setData] = useState<any | null>(null);
+  const [data, setData] = useState<PostData | null>(null);
 
   useEffect(() => {
     window.addEventListener('message', (e) => {
@@ -36,14 +40,14 @@ export const useMicrocms: UseMicrocms = () => {
   }, []);
 
   const submitData = useCallback(
-    (item: any) => {
+    (item: PostData) => {
       setData(item);
       microcmsPostData({
         id,
         message: {
           title: item.name,
           imageUrl: item.imageUrl,
-          description: `variant: ${item.variant}`,
+          description: item.colors[0],
           updatedAt: new Date(),
           data: item,
         },
