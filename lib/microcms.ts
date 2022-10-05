@@ -1,3 +1,5 @@
+import { microcmsUrl } from '../config/microcms';
+
 type Message = {
   id?: string; // iFrame識別子
   title?: string;
@@ -17,15 +19,13 @@ type Style = {
   message: any;
 };
 
-const url = `https://${process.env.NEXT_PUBLIC_SERVICE_ID}.microcms.io`;
-
 export const microcmsPostData = (data: Data) => {
   window.parent.postMessage(
     {
       ...data,
       action: 'MICROCMS_POST_DATA',
     },
-    url
+    microcmsUrl
   );
 };
 
@@ -35,6 +35,6 @@ export const microcmsUpdateStyle = (style: Style) => {
       ...style,
       action: 'MICROCMS_UPDATE_STYLE',
     },
-    url
+    microcmsUrl
   );
 };

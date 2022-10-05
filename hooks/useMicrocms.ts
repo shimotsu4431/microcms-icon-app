@@ -45,6 +45,7 @@ export const useMicrocms: UseMicrocms = () => {
         message: {
           title: item.name,
           imageUrl: item.imageUrl,
+          description: `variant: ${item.variant}`,
           updatedAt: new Date(),
           data: item,
         },
