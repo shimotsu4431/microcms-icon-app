@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.css';
 import { colorPalette } from '../config/colorPalette';
 import { FaRandom } from 'react-icons/fa';
 import { useMicrocms } from '../hooks/useMicrocms';
+import Image from 'next/image';
 
 export type Variants =
   | 'marble'
@@ -34,6 +35,7 @@ const Index: NextPage = () => {
 
   useEffect(() => {
     if (data) {
+      console.log('data', data);
       setName(data.name);
       setSelectedVariant(data.variant);
       setColors(data.colors);
@@ -76,9 +78,7 @@ const Index: NextPage = () => {
   };
 
   useEffect(() => {
-    console.log('submit');
     handleSubmit();
-    console.log(colors[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, selectedVariant, colors[0]]);
 
@@ -88,11 +88,12 @@ const Index: NextPage = () => {
     <div className={styles.container}>
       <div className={styles.inner}>
         <div className={styles.avatar}>
-          <Avatar
-            size={100}
-            name={name}
-            variant={selectedVariant}
-            colors={colors}
+          <img
+            src={
+              (data && data.imageUrl) ||
+              `https://source.boringavatars.com/${selectedVariant}/100/${name}?colors=${makeColorCodes()}`
+            }
+            alt={(data && data.name) || ''}
           />
         </div>
         <div>
