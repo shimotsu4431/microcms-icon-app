@@ -18,9 +18,7 @@ export const useMicrocms: UseMicrocms = () => {
   const [data, setData] = useState<any | null>(null);
 
   useEffect(() => {
-    console.log('===============================');
     window.addEventListener('message', (e) => {
-      console.log('e', e);
       if (
         e.isTrusted === true &&
         e.data.action === 'MICROCMS_GET_DEFAULT_DATA'
@@ -30,7 +28,7 @@ export const useMicrocms: UseMicrocms = () => {
         microcmsUpdateStyle({
           id: e.data.id,
           message: {
-            height: 400,
+            height: 500,
           },
         });
       }
@@ -45,7 +43,10 @@ export const useMicrocms: UseMicrocms = () => {
       microcmsPostData({
         id,
         message: {
-          data: item, // APIのレスポンスとなる部分
+          title: item.name,
+          imageUrl: item.imageUrl,
+          updatedAt: new Date(),
+          data: item,
         },
       });
     },

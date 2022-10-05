@@ -20,8 +20,6 @@ type Style = {
 const url = `https://${process.env.NEXT_PUBLIC_SERVICE_ID}.microcms.io`;
 
 export const microcmsPostData = (data: Data) => {
-  console.log('...data', data);
-
   window.parent.postMessage(
     {
       ...data,

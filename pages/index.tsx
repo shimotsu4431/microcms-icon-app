@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Avatar from 'boring-avatars';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import styles from '../styles/Home.module.css';
 import { colorPalette } from '../config/colorPalette';
@@ -20,25 +20,48 @@ const variants: Variants[] = [
 export type HEX = `#${string}`;
 
 const Index: NextPage = () => {
+  const [data, setData, submitData] = useMicrocms();
   const [name, setName] = useState<string>('');
   const [selectedVariant, setSelectedVariant] = useState<Variants>('beam');
 
   const [colors, setColors] = useState<HEX[]>(colorPalette[0]);
-  const [data, setData, submitData] = useMicrocms();
+
+  useEffect(() => {
+    if (data) {
+      setName(data.name);
+      setSelectedVariant(data.variant);
+      setColors(data.colors);
+    }
+  }, [data]);
 
   const handleRandomPalette = useCallback(() => {
     const MIN = 0;
     const MAX = 11;
+    const randomNum = Math.floor(Math.random() * (MAX + 1 - MIN)) + MIN;
 
-    setColors(colorPalette[Math.floor(Math.random() * (MAX + 1 - MIN)) + MIN]);
+    setColors(colorPalette[randomNum]);
   }, []);
 
+  const makeColorCodes = () => {
+    const arr = colors.map((c) => c.slice(1));
+
+    return arr.join(',');
+  };
+
   const handleSubmit = () => {
-    submitData(
-      'https://source.boringavatars.com/marble/120/Aaron%20Donald?colors=264653,2a9d8f,e9c46a,f4a261,e76f51'
-    );
+    const iconSize = 60;
+    const imageUrl = `https://source.boringavatars.com/${selectedVariant}/${iconSize}/${name}?colors=${makeColorCodes()}`;
+
+    submitData({
+      imageUrl,
+      name,
+      variant: selectedVariant,
+      colors,
+    });
     alert('submit!');
   };
+
+  if (data === null) return null;
 
   return (
     <div className={styles.container}>
